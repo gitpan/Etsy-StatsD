@@ -1,9 +1,9 @@
 ---
-abstract: unknown
+abstract: "Object-Oriented Client for Etsy's StatsD Server"
 author:
   - 'Steve Sanbeg <stevesanbeg@buzzfeed.com>'
 build_requires:
-  ExtUtils::MakeMaker: 0
+  Test::MockModule: 0
 configure_requires:
   ExtUtils::MakeMaker: 0
 distribution_type: module
@@ -19,4 +19,4 @@ no_index:
     - t
     - inc
 requires: {}
-version: 1.000
+version: 1.000001
