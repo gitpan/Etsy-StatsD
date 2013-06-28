@@ -2,7 +2,9 @@ Changes
 Makefile.PL
 MANIFEST
 README
+LICENSE
 t/Etsy-StatsD.t
+t/send.t
 lib/Etsy/StatsD.pm
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)

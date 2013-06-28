@@ -4,7 +4,12 @@ use warnings;
 use IO::Socket;
 use Carp;
 
-our $VERSION = 1.000001;
+our $VERSION = 1.001000;
+
+# The CPAN verion at https://github.com/sanbeg/Etsy-Statsd should be kept in
+# sync with the version distributed with StatsD, at
+# https://github.com/etsy/statsd (in the exmaples directory), so you can get
+# it from either location.
 
 =head1 NAME
 
@@ -58,7 +63,7 @@ sub increment {
 	$self->update( $stats, 1, $sample_rate );
 }
 
-=item increment(STATS, SAMPLE_RATE)
+=item decrement(STATS, SAMPLE_RATE)
 
 Decrement one of more stats counters.
 
@@ -69,7 +74,7 @@ sub decrement {
 	$self->update( $stats, -1, $sample_rate );
 }
 
-=item increment(STATS, DELTA, SAMPLE_RATE)
+=item update(STATS, DELTA, SAMPLE_RATE)
 
 Update one of more stats counters by arbitrary amounts.
 
@@ -116,10 +121,15 @@ sub send {
 	my $count  = 0;
 	my $socket = $self->{socket};
 	while ( my ( $stat, $value ) = each %$sampled_data ) {
-		print $socket "$stat:$value\n";
+		_send_to_sock($socket, "$stat:$value\n");
 		++$count;
 	}
 	return $count;
+}
+
+sub _send_to_sock( $$ ) {
+  my ($sock,$msg) = @_;
+  CORE::send( $sock, $msg, 0 );
 }
 
 =head1 SEE ALSO
